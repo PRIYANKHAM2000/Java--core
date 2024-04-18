@@ -1,0 +1,69 @@
+import java.util.Map;
+import java.util.TreeMap;
+
+class Car implements Comparable<Car> {
+    private String name;
+    private double price;
+
+    public Car(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    @Override
+    public String toString() {
+        return name + " " + price;
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        long temp;
+        temp = Double.doubleToLongBits(price);
+        result = prime * result + (int) (temp ^ (temp >>> 32));
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Car other = (Car) obj;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (Double.doubleToLongBits(price) != Double.doubleToLongBits(other.price))
+            return false;
+        return true;
+    }
+
+    @Override
+    public int compareTo(Car other) {
+        return this.name.compareTo(other.name);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        TreeMap<Car, Integer> carMap = new TreeMap<>();
+
+        // Predefined information of 4 car details
+        carMap.put(new Car("Bugatti", 80050.0), 1);
+        carMap.put(new Car("Swift", 305000.0), 2);
+        carMap.put(new Car("Audi", 600100.0), 3);
+        carMap.put(new Car("Benz", 900000.0), 4);
+
+        // Retrieve all car details
+        for (Map.Entry<Car, Integer> entry : carMap.entrySet()) {
+            System.out.println(entry.getKey());
+        }
+    }
+}

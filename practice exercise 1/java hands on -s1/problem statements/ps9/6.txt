@@ -1,0 +1,90 @@
+public class CircularQueue {
+    private int maxSize;
+    private int[] queueArray;
+    private int front;
+    private int rear;
+    private int currentSize;
+
+    // Constructor to initialize the circular queue
+    public CircularQueue(int maxSize) {
+        this.maxSize = maxSize;
+        queueArray = new int[maxSize];
+        front = -1;
+        rear = -1;
+        currentSize = 0;
+    }
+
+    // Method to check if the circular queue is empty
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    // Method to check if the circular queue is full
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    // Method to add an element to the rear of the circular queue
+    public void enqueue(int data) {
+        if (!isFull()) {
+            if (isEmpty()) {
+                front = 0;
+            }
+            rear = (rear + 1) % maxSize;
+            queueArray[rear] = data;
+            currentSize++;
+        } else {
+            System.out.println("Circular queue is full. Cannot enqueue.");
+        }
+    }
+
+    // Method to remove an element from the front of the circular queue
+    public void dequeue() {
+        if (!isEmpty()) {
+            if (front == rear) {
+                front = -1;
+                rear = -1;
+            } else {
+                front = (front + 1) % maxSize;
+            }
+            currentSize--;
+        } else {
+            System.out.println("Circular queue is empty. Cannot dequeue.");
+        }
+    }
+
+    // Method to display the elements of the circular queue
+    public void display() {
+        if (!isEmpty()) {
+            System.out.print("Elements in circular queue: ");
+            int count = 0;
+            int index = front;
+            while (count < currentSize) {
+                System.out.print(queueArray[index] + " ");
+                index = (index + 1) % maxSize;
+                count++;
+            }
+            System.out.println();
+        } else {
+            System.out.println("Circular queue is empty.");
+        }
+    }
+
+    public static void main(String[] args) {
+        CircularQueue circularQueue = new CircularQueue(5);
+
+        // Adding elements to the circular queue
+        circularQueue.enqueue(14);
+        circularQueue.enqueue(13);
+        circularQueue.enqueue(22);
+        circularQueue.enqueue(-8);
+
+        circularQueue.display();
+
+        // Removing the first element from the circular queue
+        circularQueue.dequeue();
+
+        System.out.print("After removing first element: ");
+        circularQueue.display();
+    }
+}

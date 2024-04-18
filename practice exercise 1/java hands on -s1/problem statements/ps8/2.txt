@@ -1,0 +1,38 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class PhoneBook {
+    private String name;
+    private long phoneNumber;
+
+    public PhoneBook(String name, long phoneNumber) {
+        this.name = name;
+        this.phoneNumber = phoneNumber;
+    }
+
+    public long getPhoneNumber() {
+        return phoneNumber;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Map<String, PhoneBook> phoneBookMap = new HashMap<>();
+
+        // Predefined information of 5 phone book details
+        phoneBookMap.put("Amal", new PhoneBook("Amal", 998787823L));
+        phoneBookMap.put("Manvitha", new PhoneBook("Manvitha", 937843978L));
+        phoneBookMap.put("Joseph", new PhoneBook("Joseph", 7882221113L));
+        phoneBookMap.put("Smith", new PhoneBook("Smith", 8293893311L));
+        phoneBookMap.put("Kathe", new PhoneBook("Kathe", 7234560011L));
+
+        // Search for the phone number
+        String nameToSearch = "Joseph";
+        if (phoneBookMap.containsKey(nameToSearch)) {
+            PhoneBook phoneBookEntry = phoneBookMap.get(nameToSearch);
+            System.out.println(phoneBookEntry.getPhoneNumber());
+        } else {
+            System.out.println("Name not found in the phone book.");
+        }
+    }
+}

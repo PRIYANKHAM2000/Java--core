@@ -1,0 +1,67 @@
+import java.util.*;
+
+public class ChainStringsCircle {
+    public static boolean canFormCircle(String[] words) {
+        Map<Character, List<String>> graph = new HashMap<>();
+        Map<String, Integer> indegree = new HashMap<>();
+
+        for (String word : words) {
+            char startChar = word.charAt(0);
+            char endChar = word.charAt(word.length() - 1);
+            graph.putIfAbsent(startChar, new ArrayList<>());
+            graph.get(startChar).add(word);
+            indegree.put(word, indegree.getOrDefault(word, 0) + 1);
+            indegree.putIfAbsent(word, 0);
+        }
+
+        Set<String> visited = new HashSet<>();
+        for (String word : words) {
+            if (!visited.contains(word) && dfs(graph, visited, word)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    private static boolean dfs(Map<Character, List<String>> graph, Set<String> visited, String word) {
+        char endChar = word.charAt(word.length() - 1);
+        visited.add(word);
+        if (!graph.containsKey(endChar)) {
+            return false;
+        }
+        for (String nextWord : graph.get(endChar)) {
+            if (!visited.contains(nextWord)) {
+                if (dfs(graph, visited, nextWord)) {
+                    return true;
+                }
+            } else if (visited.contains(nextWord) && visited.size() == graph.size()) {
+                return true;
+            }
+        }
+        visited.remove(word);
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter the number of strings: ");
+        int n = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+        String[] words = new String[n];
+        System.out.println("Enter the strings:");
+        for (int i = 0; i < n; i++) {
+            words[i] = scanner.nextLine();
+        }
+
+        if (canFormCircle(words)) {
+            System.out.println("Yes, the strings can be chained to form a circle.");
+        } else {
+            System.out.println("No, the strings cannot be chained to form a circle.");
+        }
+
+        scanner.close();
+    }
+}

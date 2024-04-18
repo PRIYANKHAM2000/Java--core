@@ -1,0 +1,59 @@
+import java.util.*;
+
+public class PatternMatching {
+    public static List<String> findMatchingStrings(String[] dictionary, String pattern) {
+        List<String> result = new ArrayList<>();
+
+        for (String word : dictionary) {
+            if (word.length() == pattern.length() && matchesPattern(word, pattern)) {
+                result.add(word);
+            }
+        }
+
+        return result;
+    }
+
+    private static boolean matchesPattern(String word, String pattern) {
+        Map<Character, Character> map = new HashMap<>();
+        Set<Character> used = new HashSet<>();
+
+        for (int i = 0; i < word.length(); i++) {
+            char ch = word.charAt(i);
+            char patCh = pattern.charAt(i);
+
+            if (map.containsKey(patCh)) {
+                if (map.get(patCh) != ch) {
+                    return false; // pattern mismatch
+                }
+            } else {
+                if (used.contains(ch)) {
+                    return false; // character already mapped to a different pattern
+                }
+                map.put(patCh, ch);
+                used.add(ch);
+            }
+        }
+
+        return true;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter the dictionary words separated by space: ");
+        String dictionaryInput = scanner.nextLine();
+        String[] dictionary = dictionaryInput.split(" ");
+
+        System.out.print("Enter the pattern: ");
+        String pattern = scanner.nextLine();
+
+        List<String> matchingStrings = findMatchingStrings(dictionary, pattern);
+
+        System.out.println("Strings in the dictionary that match the pattern:");
+        for (String str : matchingStrings) {
+            System.out.println(str);
+        }
+
+        scanner.close();
+    }
+}

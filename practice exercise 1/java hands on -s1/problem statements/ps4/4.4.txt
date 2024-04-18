@@ -1,0 +1,23 @@
+
+package com.learning;
+ 
+import java.util.ArrayList;
+import java.util.List;
+ 
+public class D01P44 {
+    public static void main(String[] args) {
+        int num = 123;
+        List<String> combinations = new ArrayList<>();
+        
+        String numString = String.valueOf(num);
+        for(int i = 0; i < numString.length(); i++) {
+            for(int j = i + 1; j < numString.length(); j++) {
+                combinations.add(numString.charAt(i) + "" + numString.charAt(j));
+            }
+        }
+        
+        for(String combination : combinations) {
+            System.out.print(combination + " ");
+        }
+    }
+}

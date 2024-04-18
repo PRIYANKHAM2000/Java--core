@@ -1,0 +1,47 @@
+package pharm;
+ 
+ 
+//Interface to represent a drug manufactured by a pharmaceutical company
+interface MedicineInfo
+{
+    void displayLabel();
+}
+ 
+// Class representing Tablets
+class Tablet implements MedicineInfo {
+    @Override
+    public void displayLabel() {
+        System.out.println("Store Tablets in a cool dry place.");
+    }
+}
+ 
+// Class representing Syrup
+class CoughSyrup implements MedicineInfo {
+    @Override
+    public void displayLabel() {
+        System.out.println("CoughSyrup is consumable only on prescription.");
+    }
+}
+ 
+// Class representing Ointment
+class Ointment implements MedicineInfo {
+    @Override
+    public void displayLabel() {
+        System.out.println("Ointment is for external use only.");
+    }
+}
+ 
+// TestClass to demonstrate polymorphic behavior
+public class TestClass {
+    public static void main(String[] args) {
+        // Declare instances of each type of Medicine
+        MedicineInfo tablet = new Tablet();
+        MedicineInfo Coughsyrup = new CoughSyrup();
+        MedicineInfo ointment = new Ointment();
+        
+        // Check polymorphic behavior of displayLabel() method
+        tablet.displayLabel();
+        syrup.displayLabel();
+        ointment.displayLabel();
+    }
+}

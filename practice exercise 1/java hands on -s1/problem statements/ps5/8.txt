@@ -1,0 +1,40 @@
+import java.util.*;
+
+public class SplitIntoFourDistinctStrings {
+    public static boolean canSplitIntoFourDistinctStrings(String str) {
+        int n = str.length();
+        
+        for (int i = 1; i < n - 2; i++) {
+            for (int j = i + 1; j < n - 1; j++) {
+                for (int k = j + 1; k < n; k++) {
+                    String first = str.substring(0, i);
+                    String second = str.substring(i, j);
+                    String third = str.substring(j, k);
+                    String fourth = str.substring(k);
+                    
+                    if (!first.equals(second) && !first.equals(third) && !first.equals(fourth) &&
+                        !second.equals(third) && !second.equals(fourth) && !third.equals(fourth)) {
+                        return true;
+                    }
+                }
+            }
+        }
+        
+        return false;
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        if (canSplitIntoFourDistinctStrings(input)) {
+            System.out.println("Yes, the string can be split into four distinct strings.");
+        } else {
+            System.out.println("No, the string cannot be split into four distinct strings.");
+        }
+
+        scanner.close();
+    }
+}

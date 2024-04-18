@@ -1,0 +1,85 @@
+public class Queue {
+    private int maxSize;
+    private int[] queueArray;
+    private int front;
+    private int rear;
+    private int currentSize;
+
+    // Constructor to initialize the queue
+    public Queue(int maxSize) {
+        this.maxSize = maxSize;
+        queueArray = new int[maxSize];
+        front = 0;
+        rear = -1;
+        currentSize = 0;
+    }
+
+    // Method to check if the queue is empty
+    public boolean isEmpty() {
+        return currentSize == 0;
+    }
+
+    // Method to check if the queue is full
+    public boolean isFull() {
+        return currentSize == maxSize;
+    }
+
+    // Method to add an element to the rear of the queue
+    public void enqueue(int data) {
+        if (!isFull()) {
+            rear = (rear + 1) % maxSize;
+            queueArray[rear] = data;
+            currentSize++;
+        } else {
+            System.out.println("Queue is full. Cannot enqueue.");
+        }
+    }
+
+    // Method to remove an element from the front of the queue
+    public int dequeue() {
+        if (!isEmpty()) {
+            int removedItem = queueArray[front];
+            front = (front + 1) % maxSize;
+            currentSize--;
+            return removedItem;
+        } else {
+            System.out.println("Queue is empty. Cannot dequeue.");
+            return -1; // returning -1 to signify an error
+        }
+    }
+
+    // Method to display the elements of the queue
+    public void display() {
+        if (!isEmpty()) {
+            System.out.print("Elements in queue: ");
+            int count = 0;
+            int index = front;
+            while (count < currentSize) {
+                System.out.print(queueArray[index] + " ");
+                index = (index + 1) % maxSize;
+                count++;
+            }
+            System.out.println();
+        } else {
+            System.out.println("Queue is empty.");
+        }
+    }
+
+    public static void main(String[] args) {
+        Queue queue = new Queue(5);
+
+        // Adding elements to the queue
+        queue.enqueue(10);
+        queue.enqueue(20);
+        queue.enqueue(30);
+        queue.enqueue(40);
+
+        queue.display();
+
+        // Removing the first element from the queue
+        queue.dequeue();
+
+        System.out.print("After removing first element: ");
+        queue.display();
+    }
+}

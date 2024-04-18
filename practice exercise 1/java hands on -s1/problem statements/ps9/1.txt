@@ -1,0 +1,73 @@
+public class Stack {
+    private int maxSize;
+    private String[] stackArray;
+    private int top;
+
+    // Constructor
+    public Stack(int size) {
+        maxSize = size;
+        stackArray = new String[maxSize];
+        top = -1;
+    }
+
+    // Method to push an element onto the stack
+    public void push(String item) {
+        if (!isFull()) {
+            top++;
+            stackArray[top] = item;
+        } else {
+            System.out.println("Stack is full. Cannot push item.");
+        }
+    }
+
+    // Method to pop an element from the stack
+    public String pop() {
+        if (!isEmpty()) {
+            String poppedItem = stackArray[top];
+            top--;
+            return poppedItem;
+        } else {
+            System.out.println("Stack is empty. Cannot pop item.");
+            return null;
+        }
+    }
+
+    // Method to check if the stack is empty
+    public boolean isEmpty() {
+        return top == -1;
+    }
+
+    // Method to check if the stack is full
+    public boolean isFull() {
+        return top == maxSize - 1;
+    }
+
+    // Method to display the elements of the stack
+    public void display() {
+        System.out.print("Stack contents: ");
+        for (int i = 0; i <= top; i++) {
+            System.out.print(stackArray[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        Stack stack = new Stack(5); // Creating a stack with maximum size of 5
+
+        // Pushing elements onto the stack
+        stack.push("Programming");
+        stack.push("java");
+        stack.push("world");
+        stack.push("Hello");
+
+        System.out.println("After Pushing 4 Elements:");
+        stack.display();
+
+        // Popping an element from the stack
+        String poppedElement = stack.pop();
+        System.out.println("After a Pop: " + poppedElement);
+
+        // Displaying the stack after popping an element
+        stack.display();
+    }
+}

@@ -1,0 +1,34 @@
+import java.util.*;
+
+public class Subsequences {
+    public static void printSubsequences(String str) {
+        printSubsequencesHelper(str, "", 0);
+    }
+
+    private static void printSubsequencesHelper(String str, String current, int index) {
+        if (index == str.length()) {
+            if (!current.isEmpty()) {
+                System.out.print(current + ", ");
+            }
+            return;
+        }
+
+        
+        printSubsequencesHelper(str, current + str.charAt(index), index + 1);
+
+        printSubsequencesHelper(str, current, index + 1);
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        
+        System.out.print("Enter a string: ");
+        String input = scanner.nextLine();
+
+        System.out.println("Subsequences:");
+        printSubsequences(input);
+
+        scanner.close();
+    }
+}
